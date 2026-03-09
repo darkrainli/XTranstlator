@@ -580,8 +580,8 @@ const MODELS = {
   qwen: ['qwen-turbo', 'qwen-plus', 'qwen-max'],
 };
 
-// All requests go through local proxy to avoid CORS
-const PROXY_URL = 'http://localhost:8765/proxy';
+// /api/proxy works both on Vercel and via local server.py
+const PROXY_URL = '/api/proxy';
 
 const CTX_PROMPTS = {
   casual:   'Use a relaxed, natural, casual American everyday tone — friendly and conversational, as if talking to a friend.',

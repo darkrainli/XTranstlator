@@ -27,7 +27,7 @@ class ProxyHandler(SimpleHTTPRequestHandler):
         self.end_headers()
 
     def do_POST(self):
-        if self.path != "/proxy":
+        if self.path != "/api/proxy":
             self.send_error(404)
             return
 
