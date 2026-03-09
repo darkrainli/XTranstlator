@@ -2,6 +2,8 @@
 
 一个基于 HTML + Python 的轻量级中英互译工具，支持多语境、多模型，界面简洁清爽。
 
+**🌐 线上体验：[https://x-transtlator.vercel.app](https://x-transtlator.vercel.app)**
+
 ![UI Preview](design-reference.png)
 
 ---
@@ -17,7 +19,13 @@
 
 ---
 
-## 快速开始
+## 在线使用
+
+直接访问，无需安装：**[https://x-transtlator.vercel.app](https://x-transtlator.vercel.app)**
+
+---
+
+## 本地运行
 
 ### 1. 克隆仓库
 
@@ -61,9 +69,12 @@ http://localhost:8765/translator.html
 
 ```
 XTranslator/
-├── translator.html   # 前端页面（单文件，含所有 CSS 和 JS）
-├── server.py         # 本地代理服务器（Python 3，无需安装依赖）
-├── start.sh          # 一键启动脚本
+├── api/
+│   └── proxy.js          # Vercel Serverless Function（API 代理）
+├── translator.html        # 前端页面（单文件，含所有 CSS 和 JS）
+├── server.py              # 本地代理服务器（Python 3，无需安装依赖）
+├── start.sh               # 一键启动脚本
+├── vercel.json            # Vercel 部署配置
 └── README.md
 ```
 
@@ -72,12 +83,13 @@ XTranslator/
 ## 技术栈
 
 - **前端** — 纯 HTML / CSS / JavaScript，无框架，无依赖
-- **后端** — Python 3 标准库（`http.server` + `urllib`），零依赖
+- **本地后端** — Python 3 标准库（`http.server` + `urllib`），零依赖
+- **线上后端** — Vercel Serverless Function（Node.js）
 - **API** — OpenAI 兼容格式，同时支持智谱 GLM 和阿里 Qwen
 
 ---
 
 ## 环境要求
 
-- Python 3.6+
+- Python 3.6+（仅本地运行时需要）
 - 现代浏览器（Chrome / Safari / Firefox / Edge）
