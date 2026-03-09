@@ -584,10 +584,27 @@ const MODELS = {
 const PROXY_URL = '/api/proxy';
 
 const CTX_PROMPTS = {
-  casual:   'Use a relaxed, natural, casual American everyday tone — friendly and conversational, as if talking to a friend.',
-  academic: 'Use precise, formal academic language — structured, objective, and suitable for scholarly writing or research papers.',
-  business: 'Use professional, polished business language — clear, concise, and appropriate for corporate communication.',
-  spoken:   'Use simple, warm, everyday spoken language — natural and approachable, as if in a casual face-to-face conversation.',
+  casual:
+    'Translate in a relaxed, natural American everyday style. ' +
+    'Prefer contractions, colloquial phrasing, and light vocabulary. ' +
+    'Sound like a native speaker texting a friend — not a textbook.',
+
+  academic:
+    'Translate in a rigorous academic register. ' +
+    'Use discipline-appropriate terminology, full sentences, and passive constructions where natural. ' +
+    'Preserve hedging language (e.g. "suggests", "indicates") and citation-ready phrasing. ' +
+    'Avoid contractions and colloquialisms entirely.',
+
+  business:
+    'Translate in a clear, professional business tone. ' +
+    'Be direct and concise — no filler words. ' +
+    'Use standard business vocabulary. ' +
+    'Prefer active voice and action-oriented phrasing suitable for emails, reports, or presentations.',
+
+  spoken:
+    'Translate as natural spoken language. ' +
+    'Keep sentences short, use everyday words, and mirror the rhythm of casual speech. ' +
+    'Avoid written-language structures. It should sound fluent when read aloud.',
 };
 
 // ── Init ─────────────────────────────────────────────────────────────────
@@ -764,7 +781,17 @@ async function doTranslate() {
   const srcLang = dir === 'zh2en' ? 'Chinese' : 'English';
   const tgtLang = dir === 'zh2en' ? 'English' : 'Chinese';
 
-  const systemPrompt = `You are a professional translator. Translate the following ${srcLang} text into ${tgtLang}. ${CTX_PROMPTS[activeCtx]} Return ONLY the translated text — no explanations, no alternatives, no extra commentary.`;
+  const systemPrompt =
+    `You are an expert ${srcLang}-to-${tgtLang} translator with native-level fluency in both languages.\n` +
+    `\n` +
+    `Guidelines:\n` +
+    `- Preserve the original meaning, tone, and intent faithfully\n` +
+    `- Produce idiomatic ${tgtLang} — never translate word-for-word if it sounds unnatural\n` +
+    `- Maintain the same paragraph structure and formatting as the source\n` +
+    `- Keep proper nouns, brand names, and technical terms unchanged unless a standard translation exists\n` +
+    `- Style: ${CTX_PROMPTS[activeCtx]}\n` +
+    `\n` +
+    `Output the translation only — no explanations, no alternatives, no notes.`;
 
   const requestBody = {
     model,
